@@ -11,7 +11,7 @@ using IKM724NetBasics.Entities;
 using System.Reflection;
 using IKM724NetBasics.Enums;
 
-namespace AutomatedGreenhouse
+namespace AutomatedHeatingSystem
 {
     class Program
     {
@@ -22,7 +22,7 @@ namespace AutomatedGreenhouse
         private static readonly ConcurrentDictionary<string, double> values = 
             new ConcurrentDictionary<string, double>();
 
-        private static GreenHouse greenhouse = new GreenHouse();
+        private static HeatingSystem heatingSystem = new HeatingSystem();
         private static HubConnection connection;
 
         static async Task Main(string[] args)
@@ -47,8 +47,9 @@ namespace AutomatedGreenhouse
             var sensorFactories = new Dictionary<string, Func<Sensor>>
             {
                 {"InnerTemperature",() => new TemperatureSensor("Temperature", "No description") },
-                {"OuterTemperature",() => new TemperatureSensor("Humidity", "No description") },
-                // Add your sensors here
+                {"InnerTemperature2",() => new TemperatureSensor("Temperature", "No description") },
+                {"InnerTemperature3",() => new TemperatureSensor("Temperature", "No description") },
+                {"HeatingDeviceTemperature",() => new TemperatureSensor("Temperature", "No description") },
             };
 
             foreach(var indicator in deserializedResult)
@@ -58,7 +59,7 @@ namespace AutomatedGreenhouse
                     var sensor = createSensor();
                     sensor.Name = indicator.Name;
                     sensor.Description = indicator.Description;
-                    greenhouse.Sensors.Add(sensor);
+                    heatingSystem.Sensors.Add(sensor);
                 }
                 else 
                 {
@@ -134,9 +135,9 @@ namespace AutomatedGreenhouse
 
         private static double GenerateValue(double targetValue, double currentValue, IndicatorModel indicatorModel)
         {
-            greenhouse.Monitor();
+            heatingSystem.Monitor();
 
-            var value = greenhouse.Sensors.FirstOrDefault(x => x.Name == indicatorModel.Name);
+            var value = heatingSystem.Sensors.FirstOrDefault(x => x.Name == indicatorModel.Name);
 
             return Math.Round(value.Value, 2);
         }

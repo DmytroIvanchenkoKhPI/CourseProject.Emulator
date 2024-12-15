@@ -8,19 +8,13 @@ using System.Threading.Tasks;
 
 namespace IKM724NetBasics.Entities
 {
-    public class GreenHouse
+    public class HeatingSystem
     {
         public List<Sensor> Sensors { get; set; }
-        public IrrigationSystem Irrigation { get; set; }
-        public LightingSystem Lighting { get; set; }
-        public VentilationSystem Ventilation { get; set; }
 
-        public GreenHouse()
+        public HeatingSystem()
         {
             Sensors = new List<Sensor>();
-            Irrigation = new IrrigationSystem();
-            Lighting = new LightingSystem();
-            Ventilation = new VentilationSystem();
         }
 
         public void Monitor()

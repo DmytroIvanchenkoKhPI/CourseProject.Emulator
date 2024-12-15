@@ -8,7 +8,6 @@ namespace IKM724NetBasics.Enums
 {
     public enum SensorType
     {
-        Temperature,
-        Humidity
+        Temperature
     }
 }
